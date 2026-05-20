@@ -112,6 +112,46 @@ paths:
                 $ref: '#/components/schemas/Post'
         '400':
           $ref: '#/components/responses/BadRequest'
+  /post/{Id}:
+    parameters:
+      -$ref: '#/components/parameters/Id'
+    get:
+      summary: Obtener post por ID
+      responses:
+        '200':
+          description: Detalles del post.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      summary: Actualizar un post específico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostInput'
+      responses:
+        '200':
+          description: Post actualizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Eliminar un post específico
+      responses:
+        '204':
+          description: Post eliminado correctamente.
+        '404':
+          $ref: '#/components/responses/NotFound'
   /posts/authors/{authorId}:
     parameters:
       - name: authorId
@@ -179,3 +219,85 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CommentWithAuthor'
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    BadRequest:
+      description: Solicitud inválida (faltan datos o estan mal formados).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: El recurso solicitado no existe.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas: 
+    Author:
+      type: object
+      properties:
+        id: {type: integer}
+        name: {type: string}
+        email: {type: string, format: email}
+        bio: {type: string, nullable: true}
+        created_at: {type: string, format: date-time}
+    AuthorInput:
+      type: object
+      required: [name, email]
+      properties:
+        name: {type: string}
+        email: {type: string}
+        bio: {type: string}
+    Post:
+      type: object
+      properties:
+        title: {type: string}
+        content: {type: string}
+        author_id: {type: integer}
+        published: {type: boolean} 
+    PostInput:
+      type: object
+      required: [title, content, author_id]
+      properties:
+        title: {type: string}
+        content: {type: string}
+        author_id: {type: integer}
+        published: {type: boolean}
+    PostWithAuthor:
+      allOf:
+        - $ref: '#/components/schemas/Post'
+        - type: object
+          properties:
+            author_name: {type: string}
+    Comment:
+      type: object
+      properties:
+        id: {type: integer}
+        content: {type: string}
+        author_id: {type: integer}
+        post_id: {type: integer}
+    CommentInput:
+      type: object
+      required: [content, author_id, post_id]
+      properties:
+        content: {type: string}
+        author_id: {type: integer}
+        post_id: {type: integer}
+    CommentWithAuthor:
+      allOf:
+        - $ref: '#/components/schemas/Comment'
+        - type: object
+          properties:
+            author_name: {type: string}
+    Error:
+      type: object
+      properties:
+        message: {type: string}
