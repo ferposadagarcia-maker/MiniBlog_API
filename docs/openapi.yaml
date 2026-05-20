@@ -150,13 +150,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '404':
           $ref: '#/components/responses/NotFound'
-    delete:
-      summary: Eliminar un post
-      responses:
-        '204':
-          description: Post eliminado correctamente.
-        '404':
-          $ref: '#/components/responses/NotFound'
   /comments:
     post:
       summary: Crear un comentario
