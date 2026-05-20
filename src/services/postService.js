@@ -28,7 +28,7 @@ const postService = {
 
     getByAuthor: async (authorId) => {
         const query = `
-            SELECT posts.*, authors.name as author_name 
+            SELECT posts.*, authors.name as author_name, authors.email as author_email 
             FROM posts 
             JOIN authors ON posts.author_id = authors.id 
             WHERE authors.id = $1`;
