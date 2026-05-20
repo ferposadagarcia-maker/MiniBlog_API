@@ -1,8 +1,8 @@
-# 📚 MiniBlog Literario API
+# 💻 MiniBlog Literario API
 
-Este repositorio contiene la versión inicial del servicio de contenidos MiniBlog, desarrollado para la startup DevSpark. Se trata de una API REST construida con Node.js, Express y PostgreSQL, diseñada para gestionar autores, publicaciones y comentarios bajo una arquitectura escalable y profesional.
-## Descripición del Proyecto
-La API permite realizar operaciones CRUD completas sobre autores y sus publicaciones, asegurando la integridad referencial y la persistencia de datos. El proyecto incluye un conjunto de datos curados con temática de literatura existencialista y clásica (Milan Kundera, José Saramago, Alejandra Pizarnik) para facilitar las pruebas de integración.
+Este repositorio contiene la versión inicial del servicio de contenidos MiniBlog, desarrollado para la startup DevSpark. Se trata de una API REST construida con Node.js, Express y PostgreSQL y una suite de pruebas automatizadas con Vitest; diseñada para gestionar autores, publicaciones y comentarios bajo una arquitectura escalable y profesional.
+## 📖 Descripición y temática
+La API permite realizar operaciones CRUD completas sobre autores y sus publicaciones. El proyecto incluye un conjunto de datos curados con temática de literatura existencialista y clásica (Milan Kundera, José Saramago, Alejandra Pizarnik) para facilitar las pruebas de integración.
 
 ## 🛠️ Tecnologías utilizadas
 - **Node.js** & **Express**
@@ -10,13 +10,13 @@ La API permite realizar operaciones CRUD completas sobre autores y sus publicaci
 - **Jest**, **Supertest** & **Vitest**(Testing automatizado)
 - **SwaggerUI/OpenAPI** (Documentación)
 - **Railway** & **GitHub** (Deployment)
-## Arquitectura del Sistema
+## 🏛️ Arquitectura y Diseño
 El proyecto sigue un patrón de diseño basado en la separación de responsabilidades:
 -   **Routes:** Definición de puntos de entrada y asignación de middlewares.
 -   **Controllers:** Manejo de la lógica de petición/respuesta y orquestación de servicios.
 -   **Services:** Capa de acceso a datos y ejecución de consultas SQL.
 -   **Middlewares:** Gestión centralizada de errores, validaciones y rutas no encontradas.
-## Esquema de Carpetas
+## 🗂️ Esquema de Carpetas
 ```bash
 ├── db/                 # Scripts de inicialización y semillas SQL
 ├── docs/               # Especificación OpenAPI (Swagger)
@@ -46,21 +46,21 @@ git clone https://github.com/ferposadagarcia-maker/ProyectoM1_FernandaPosada.git
 ``` bash
 npm install
 ```
-**3. Configurar el entorno**
+**3. Variables de Entorno**
 ``` bash
-cp .env.example .env
+PORT=3000
+DB_USER=tu_usuario
+DB_PASSWORD=tu_password
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=miniblog_db
 ```
-*Editar .env con contraseñas personales de PostgreSQL*
-
 **4. Iniciar la base de datos**
 - Ejecutar `db/init.sql` para crear el esquema de tablas.
 - Ejecutar `db/seed.sql` para cargar los datos de prueba.
-**5. Iniciar**
-``` bash
-npm start
-```
-## Documentación de la API
-La documentación interactiva se genera automaticamente a traves de Swagger UI la cual permite visualizar y probar todos los endpoints disponibles.
+
+## Documentación interactiva de la API
+La documentación interactiva se genera automáticamente a tráves de Swagger UI la cual permite visualizar y probar todos los endpoints disponibles.
 - URL Local: `http://localhost:3000/api-docs`
 
 **Principales Endpoints**
@@ -71,6 +71,7 @@ La documentación interactiva se genera automaticamente a traves de Swagger UI l
 - Author Posts: `GET /post/authors/:authorId`
 - Comments: `POST /commets`
 - Comments Id: `GET /comments/post/:postID`
+
 ## Ejemplos de uso (Api endpoints)
 
 ### Autores
@@ -118,5 +119,19 @@ curl -X POST https://mini-blog-literario.up.railway.app/comments \
     "content": "Excelente reflexión sobre el existencialismo."
   }'
 ```
+## 💯 Testing Automatizado
+Se han creado **6 test unitarios** que cubren operaciones CRUD y casos de error (como validacion de emails duplicados, campos obligatorios e integridad referencial).
 
+Para ejecutar:
+```bash 
+npm test
+```
+## 🔒 Seguridad y Validaciones
+- **Prevención de SQL injection:** Uso estricto de consultas parametrizadas en la capa de servicios.
+- **Validación de Equema:** Middlewares de validación para asegurar que los datos de entrada cumplan con los requisitos de negocio antes de tocar la persistencia.
+- **Manejo de errores:** sistema centralizado que estandariza las respuestas ante errores de cliente (400, 404) y fallos de servidor (500), garantizando que no se fltre información sensible del stack tecnológico.
 
+## ⚡Deployment
+La apliación se encuentra desplegada y operativa en Railway.
+
+👉🏻 **URL Pública:** *link*
