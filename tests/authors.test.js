@@ -1,3 +1,4 @@
+import { describe, it, expect, afterAll } from 'vitest';
 const request = require('supertest');
 const app = require('../src/app');
 const pool = require('../src/config/db');

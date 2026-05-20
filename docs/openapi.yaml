@@ -23,7 +23,7 @@ paths:
       responses:
         '200':
           description: Lista de autores
-            content:
+          content:
               application/json:
                 schema:
                   type: array
