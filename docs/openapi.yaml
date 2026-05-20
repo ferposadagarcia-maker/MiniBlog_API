@@ -76,7 +76,9 @@ paths:
       summary: Eliminar un autor y sus posts/comentarios asociados
       responses:
         '204':
-          description: Autor eliminado correctamente.  
+          description: Autor eliminado correctamente.
+        '404':
+          $ref: '#/components/responses/NotFound'  
   /posts:
     get:
       summary: Listar todos los posts
@@ -104,6 +106,12 @@ paths:
       responses:
         '201':
           description: Post creado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /posts/authors/{authorId}:
     parameters:
       - name: authorId
@@ -121,11 +129,34 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PostWithAuthor'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      summary: Actualizar post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostInput'
+      responses:
+        '200':
+          description: Post actualizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      summary: Eliminar todos los posts de un autor específico
+      summary: Eliminar un post
       responses:
         '204':
-          description: Posts eliminados correctamente.
+          description: Post eliminado correctamente.
+        '404':
+          $ref: '#/components/responses/NotFound'
   /comments:
     post:
       summary: Crear un comentario
@@ -155,4 +186,3 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CommentWithAuthor'
-                  
