@@ -71,5 +71,52 @@ La documentación interactiva se genera automaticamente a traves de Swagger UI l
 - Author Posts: `GET /post/authors/:authorId`
 - Comments: `POST /commets`
 - Comments Id: `GET /comments/post/:postID`
-## Testing
+## Ejemplos de uso (Api endpoints)
+
+### Autores
+
+#### Obtener todos los autores
+```bash
+curl https://mini-blog-literario.up.railway.app/authors
+```
+#### Crear un nuevo autor
+```bash
+curl -X POST https://mini-blog-literario.up.railway.app/authors \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Milan Kundera",
+    "email": "milan@kundera.cz",
+    "bio": "Escritor checo, autor de La insoportable levedad del ser."
+  }'
+  ```
+### Posts
+
+#### Crear un post para (ID 1)
+```bash
+curl -X POST https://mini-blog-literario.up.railway.app/posts \
+-H "Content-Type: application/json" \
+-d '{
+    "title": "La levedad del ser",
+    "content": "Un análisis sobre el peso de las decisiones humanas.",
+    "author_id": 1,
+    "published": true
+  }'
+```
+#### Obtener post de un autor específico
+```bash
+curl https://mini-blog-literario.up.railway.app/posts/author/1
+```
+### Comments
+
+#### Crear un comentario
+```bash
+curl -X POST https://mini-blog-literario.up.railway.app/comments \
+  -H "Content-Type: application/json" \
+  -d '{
+    "post_id": 1,
+    "author_id": 2,
+    "content": "Excelente reflexión sobre el existencialismo."
+  }'
+```
+
 
