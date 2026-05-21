@@ -131,7 +131,36 @@ npm test
 - **Validación de Equema:** Middlewares de validación para asegurar que los datos de entrada cumplan con los requisitos de negocio antes de tocar la persistencia.
 - **Manejo de errores:** sistema centralizado que estandariza las respuestas ante errores de cliente (400, 404) y fallos de servidor (500), garantizando que no se fltre información sensible del stack tecnológico.
 
-## ⚡Deployment
-La apliación se encuentra desplegada y operativa en Railway.
+## ⚡ Deployment
+El despliegue de esta aplicación se realizó integrando tres plataformas; **GitHub** para el control de versiones, **Railway** para el hosting del servidor y **PostgreSql** para la persistencia de datos en la nube.
 
-👉🏻 **URL Pública:** *link*
+### 1. Github
+Para garantizar la integridad del código:
+
+1. Se inicializó el repositorio localmente con `git init`.
+2. Se configuro un archivo `.gitignore` para excluir carpetas pesadas y archivos sensibles (`node.modules` y `.env`).
+3. Se vinculó el repositorio local con GitHub mediante:
+``` bash
+git remote add origin https://github.com/tu-usuario/MiniBlog_API.git
+git push -u origin main
+```
+### 2. Configuración de Base de Datos en Railway
+**1.** Se generó una instancia de db en la nube.
+**2.** Migración de Esquema: Utilizando pgAdmin ejecutando lo siguiente:
+- `db/init.sql`: Para la creacion de tablas, relaciones (FK) y constrains.
+- `db/seed.sql`: Para la carga de datos literarios iniciales.
+
+**3.** Se obtuvo la **DATABASE_PUBLIC_URL** para la conexión de herramientas externas y la comunicación interna del servicio.
+
+### 3. Despliegue del Servidor (App Service)
+La API se desplegó conectando directamente el repositorio de GitHub con un nuevo proyecto en Railway:
+
+**1.Conexión de source:** Se vinculó la rama `main` del repositorio `Miniblog_API`.
+**2.Variables de entorno:** Se configuraron los parámetros en la sección de *Variables* de la app para asegurar la conectividad 
+- `DATABASE_PUBLIC_URL`: Pegando la cadena de conexión completa proporcionada por el servicio PostgreSQL.
+- `PORT`: Establecido en 300 (el puerto que proporciona Railway).
+
+### Verificación de Producción
+Una vez finalizado el despliegue automático, la aplicación genera un dominio público permitiendo el acceso a:
+- 👉🏻 **Salud del sistema:** `https://miniblogapi-production-00c8.up.railway.app/health`
+- 👉🏻 **Documentación Interactiva:** `https://miniblogapi-production-00c8.up.railway.app/api-docs/`
