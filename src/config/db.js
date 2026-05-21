@@ -1,14 +1,13 @@
 const { Pool } = require('pg');
-const path = require('path');
+require('dotenv').config();
 
-require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+const isProduction = process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('localhost');
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
+  connectionString: process.env.DATABASE_URL,
+  ssl: isProduction 
+    ? { rejectUnauthorized: false } 
+    : false,
 });
 
 pool.on('connect', () => {
