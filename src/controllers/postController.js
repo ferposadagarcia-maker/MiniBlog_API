@@ -1,9 +1,9 @@
 const e = require('express');
-const postService = require('../services/postsService');
+const postsService = require('../services/postsService');
 
 const getAllPosts = async (req, res, next) => {
     try {
-        const posts = await postService.getAll();
+        const posts = await postsService.getAll();
         res.json(posts);
     } catch (error) {
         next(error);
@@ -18,7 +18,7 @@ const createPost = async (req, res, next) => {
     }
 
     try {
-        const newPost = await postService.create(author_id, title, content);
+        const newPost = await postsService.create(author_id, title, content);
         res.status(201).json(newPost);
     } catch (error) {
         next(error);
@@ -27,7 +27,7 @@ const createPost = async (req, res, next) => {
 
 const getPostById = async (req, res, next) => {
     try {
-        const post = await postService.getById(req.params.id);
+        const post = await postsService.getById(req.params.id);
         if (!post) return res.status(404).json({ error: 'Post no encontrado' });
         res.json(post);
     } catch (error) {
@@ -37,7 +37,7 @@ const getPostById = async (req, res, next) => {
 
 const getPostsByAuthor = async (req, res, next) => {
     try {
-        const posts = await postService.getByAuthor(req.params.authorId);
+        const posts = await postsService.getByAuthor(req.params.authorId);
         res.json(posts);
     } catch (error) {
         next(error);
@@ -47,7 +47,7 @@ const getPostsByAuthor = async (req, res, next) => {
 const updatePost = async (req, res, next) => {
     const { title, content, published } = req.body;
     try {
-        const updatedPost = await postService.update(req.params.id, title, content, published);
+        const updatedPost = await postsService.update(req.params.id, title, content, published);
         if (!updatedPost) return res.status(404).json({ error: 'Post no encontrado' });
         res.json(updatedPost);
     } catch (error) {
@@ -57,7 +57,7 @@ const updatePost = async (req, res, next) => {
 
 const deletePost = async (req, res, next) => {
     try {
-        const deletedPost = await postService.delete(req.params.id);
+        const deletedPost = await postsService.delete(req.params.id);
         if (!deletedPost) return res.status(404).json({ error: 'Post no encontrado' });
         res.status(204).send();
     } catch (error) {
