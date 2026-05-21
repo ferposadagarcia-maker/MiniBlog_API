@@ -1,15 +1,41 @@
 const express = require('express');
 const router = express.Router();
-const authorController = require('../controllers/authorController');
-
+const AuthorsService = require('../services/authorsService');
 const { validateAuthor } = require('../middlewares/validations');
+const asyncHandler = require('../middlewares/asyncHandler');
 
-router.post('/', validateAuthor, authorController.createAuthor);
+router.get('/', asyncHandler(async (req, res) => {
+    const authors = await AuthorsService.getAll();
+    res.json(authors);
+}));
 
-router.get('/', authorController.getAllAuthors);
-router.post('/', authorController.createAuthor);
-router.get('/:id', authorController.getAuthorById);
-router.put('/:id', authorController.updateAuthor);
-router.delete('/:id', authorController.deleteAuthor);
+router.get('/:id', asyncHandler(async (req, res) => {
+    const author
+     = await AuthorsService.getById(req.params.id);
+     
+    if (!author) return res.status(404).json({ error: 'Autor no encontrado' });
+    res.json(author);
+}));
+
+router.post('/', validateAuthor, asyncHandler(async (req, res) => {
+    try {
+        const { name, email, bio } = req.body;
+        const newAuthor = await AuthorsService.create(name, email, bio);
+        res.status(201).json(newAuthor);
+    } catch (error) {
+        if (error.code === '23505') { 
+            return res.status(400).json({ error: 'El email ya está registrado' });
+    }
+    throw error;
+    }
+}));
+
+router.delete('/:id', asyncHandler(async (req, res) => {
+    const deleted = await AuthorsService.delete(req.params.id);
+    if (!deleted) {
+        return res.status(404).json({ error: 'Autor no encontrado' });
+    }
+    res.status(204).send();
+}));
 
 module.exports = router;
