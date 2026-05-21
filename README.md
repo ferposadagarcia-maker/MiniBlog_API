@@ -164,3 +164,22 @@ La API se desplegó conectando directamente el repositorio de GitHub con un nuev
 Una vez finalizado el despliegue automático, la aplicación genera un dominio público permitiendo el acceso a:
 - 👉🏻 **Salud del sistema:** `https://miniblogapi-production-00c8.up.railway.app/health`
 - 👉🏻 **Documentación Interactiva:** `https://miniblogapi-production-00c8.up.railway.app/api-docs/`
+
+
+*Autor: Fernanda Posada, PI_M2, SoyHenry.*
+
+
+## 🤖 Registro de uso de AI
+Para el desarrollo de este Proyecto Integrador, se utilizó Inteligencia Artificial como herramienta de apoyo pedagógico, depuración y optimización de procesos, bajo el siguiente esquema:
+
+### 1. Áreas de aplicación
+- **Explicación Conceptual:** Se utilizó la IA para profundizar en el entendimiento de la arquitectura de capas, el funcionamiento del Pool de conexiones y la lógica de los middlewares en Express.
+- **Depuración (Debugging):** Asistencia técnica para resolver errores de entorno específicos de la implementación en macOS y errores de despliegue en Linux (Railway) relacionados con la sensibilidad a mayúsculas/minúsculas en el sistema de archivos.
+- **Migración de Testing:** Apoyo en la transición de Jest a Vitest, asegurando la compatibilidad de los tests unitarios con el entorno de ejecución moderno.
+
+### Validación de Código
+Es importante destacar que **cada línea de código generada o sugerida fue revisada, probada y validada manualmente.** No se realizó una copia ciega de funciones; el uso de la IA se centró en acelerar la resolución de problemas técnicos y en mejorar la calidad de la documentación (OpenAPI y README).
+
+### Herramienta Utilizada
+
+- **GeminiStudio**
