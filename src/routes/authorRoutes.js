@@ -29,6 +29,14 @@ router.post('/', validateAuthor, asyncHandler(async (req, res) => {
     throw error;
     }
 }));
+router.put('/:id', validateAuthor, asyncHandler(async (req, res) => {
+    const { name, email, bio } = req.body;
+    const updatedAuthor = await AuthorsService.update(req.params.id, name, email, bio);
+    if (!updatedAuthor) {
+        return res.status(404).json({ error: 'Autor no encontrado' });
+    }
+    res.json(updatedAuthor);
+}));
 
 router.delete('/:id', asyncHandler(async (req, res) => {
     const deleted = await AuthorsService.delete(req.params.id);
