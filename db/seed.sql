@@ -12,3 +12,7 @@ INSERT INTO posts (author_id, title, content, published) VALUES
 (3, 'El tiempo en Macondo', 'En la literatura, el tiempo no es una línea recta, sino un círculo que se repite eternamente.', true),
 (4, 'El silencio de las palabras', 'Escribir es intentar nombrar lo que no tiene nombre, bordear el abismo del silencio.', true),
 (1, 'La inmortalidad', 'Un breve ensayo sobre cómo dejamos huella en los demás a través de los gestos.', false);
+
+INSERT INTO comments (post_id, author_id, content) VALUES
+(1, 2, 'Kundera, me parece un análisis fascinante.'),
+(2, 1, 'Saramago, coincido plenamente en tu visión de la ceguera social.');
