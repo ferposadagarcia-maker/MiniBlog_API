@@ -12,7 +12,10 @@ const YAML = require('yamljs');
 const openApiPath = path.join(__dirname, '..', 'docs', 'openapi.yaml');
 const openApiDocument = YAML.load(openApiPath);
 
+const cors = require('cors');
+  
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.get('/health', (req, res) => {
