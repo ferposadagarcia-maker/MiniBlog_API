@@ -1,4 +1,4 @@
-const authorsService = require('../services/authorsService');
+const authorService = require('../services/authorsService');
 
 const createAuthor = async (req, res, next) => {
     const { name, email, bio } = req.body;
@@ -8,7 +8,7 @@ const createAuthor = async (req, res, next) => {
     }
 
     try {
-        const newAuthor = await authorsService.create(name, email, bio);
+        const newAuthor = await authorService.create(name, email, bio);
         res.status(201).json(newAuthor);
     } catch (error) {
         if (error.code === '23505') {
@@ -20,7 +20,7 @@ const createAuthor = async (req, res, next) => {
 
 const getAllAuthors = async (req, res, next) => {
     try {
-        const authors = await authorsService.getAll();
+        const authors = await authorService.getAll();
         res.status(200).json(authors);
     } catch (error) {
         next(error);
@@ -29,7 +29,7 @@ const getAllAuthors = async (req, res, next) => {
 
 const getAuthorById = async (req, res, next) => {
     try {
-        const author = await authorsService.getById(req.params.id);
+        const author = await authorService.getById(req.params.id);
         if (!author) return res.status(404).json({ error: 'Autor no encontrado' });
         res.json(author);
     } catch (error) {
@@ -40,7 +40,7 @@ const getAuthorById = async (req, res, next) => {
 const updateAuthor = async (req, res, next) => {
     const { name, email, bio } = req.body;
     try {
-        const updatedAuthor = await authorsService.update(req.params.id, name, email, bio);
+        const updatedAuthor = await authorService.update(req.params.id, name, email, bio);
         if (!updatedAuthor) return res.status(404).json({ error: 'Autor no encontrado' });
         res.json(updatedAuthor);
     } catch (error) {
@@ -50,7 +50,7 @@ const updateAuthor = async (req, res, next) => {
 
 const deleteAuthor = async (req, res, next) => {
     try {
-        const deletedAuthor = await authorsService.delete(req.params.id);
+        const deletedAuthor = await authorService.delete(req.params.id);
         if (!deletedAuthor) return res.status(404).json({ error: 'Autor no encontrado' });
         // 204 No Content es ideal para borrados exitosos
         res.status(204).send(); 
