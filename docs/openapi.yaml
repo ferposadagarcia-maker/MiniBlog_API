@@ -2,13 +2,15 @@ openapi: 3.1.1
 info:
   title: MiniBlog API - Proyecto Integrador M2
   description: API REST para gestionar autores, publicaciones y comentarios literarios.
-  version: 1.0.0
+  version: 2.0.0
   contact:
     name: Fernanda Posada García
     email: ferposadagarcia@gmail.com
 servers:
   - url: http://localhost:3000
     description: Servidor de Desarrollo
+  - url: https://miniblogapi-production-00c8.up.railway.app
+    description: Servidor de Producción en Railway
 
 paths:
   /healths:
